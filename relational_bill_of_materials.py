@@ -14,4 +14,4 @@ for i in df.index:
             lines.append(line)
 
 new_df = pd.DataFrame(lines, columns=['tube_assembly_id', 'component_id', 'quantity'])
-new_df.to_csv('aux/relational_bill_of_materials.csv')
+new_df.to_csv('aux/relational_bill_of_materials.csv', index=False)
