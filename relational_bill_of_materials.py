@@ -12,6 +12,6 @@ for i in df.index:
         if type(row[cid_key]) == str:
             line = row['tube_assembly_id'], row[cid_key], row[quantity_key]
             lines.append(line)
-
+    lines.append(line)
 new_df = pd.DataFrame(lines, columns=['tube_assembly_id', 'component_id', 'quantity'])
 new_df.to_csv('aux/relational_bill_of_materials.csv', index=False)

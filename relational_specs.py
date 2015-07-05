@@ -11,5 +11,6 @@ for i in df.index:
         k = 'spec' + str(j)
         if type(row[k]) == str:
             lines.append((tube_assembly_id, row[k]))
+
 new_df = pd.DataFrame(lines, columns=['tube_assembly_id', 'spec_id'])
 new_df.to_csv('aux/relational_specs.csv', index=False)
