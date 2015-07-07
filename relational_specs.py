@@ -20,5 +20,5 @@ columns=['tube_assembly_id', 'component_id']
 
 df = pd.DataFrame(rows_output, columns=columns)
 df['x'] = 1
-df = pd.pivot_table(df, index='tube_assembly_id', columns='component_id', values='x')
+df = pd.pivot_table(df, index='tube_assembly_id', columns='component_id', values='x').fillna(0)
 df.to_csv('processed/tube_specs.csv')
