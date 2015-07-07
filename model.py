@@ -20,26 +20,26 @@ add_date_features(test_set)
 # TUBE FEATURES
 tube = pd.read_csv('raw/tube.csv')
 specs = pd.read_csv('processed/tube_specs.csv')
-components = pd.read_csv('processed/tube_components.csv')
+# components = pd.read_csv('processed/tube_components.csv')
 
 train_set = pd.merge(train_set, tube, on='tube_assembly_id', how='left')
 train_set = pd.merge(train_set, specs, on='tube_assembly_id', how='left').fillna(0)
-train_set = pd.merge(train_set, components, on='tube_assembly_id', how='left').fillna(0)
-
-for c in specs.columns:
-    x = (train_set[c] == 1).sum()
-    if x == 0:
-        del train_set[c]
-
-for c in components.columns:
-    x = (train_set[c] == 1).sum()
-    if x == 0:
-        del train_set[c]
-
+# train_set = pd.merge(train_set, components, on='tube_assembly_id', how='left').fillna(0)
 
 numeric = [np.float64, np.int64]
 
+for c in specs.select_dtypes(numeric).columns:
+    x = (train_set[c] == 1).sum()
+    if x == 0:
+        del train_set[c]
+
+# for c in components.select_dtypes(numeric).columns:
+#    x = (train_set[c] == 1).sum()
+#    if x == 0:
+#        del train_set[c]
+
 rows = []
+
 for c in train_set.select_dtypes(numeric).columns:
     x = train_set[c]
     rows.append((c.ljust(20), np.corrcoef(x, train_set.cost)[1][0], np.mean(x)))
